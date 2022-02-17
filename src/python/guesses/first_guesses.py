@@ -7,7 +7,7 @@ class FirstGuesses:
     def __init__(self, possible_answers):
         self.possible_answers = possible_answers
 
-        with open("src/words.json", "r") as words:
+        with open("../words.json", "r") as words:
             data = load(words)
 
         self.all_possible_guesses = data["possible_guesses"]

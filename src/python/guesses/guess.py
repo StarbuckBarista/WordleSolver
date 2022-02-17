@@ -21,7 +21,7 @@ class Guess:
             callback(LastGuesses(self.possible_answers).guess())
 
     def get_possible_answers(self):
-        with open("src/words.json", "r") as words:
+        with open("../words.json", "r") as words:
             data = load(words)
             all_possible_answers = data["possible_answers"]
 
