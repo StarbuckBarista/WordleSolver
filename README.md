@@ -17,6 +17,10 @@
   </p>
     
   <hr>
+
+  <p align="center">
+    <strong>DISCLAIMER:</strong> I have no intentions of "ruining the fun" in Wordle for some people. This game has brought together so many people in such a wonderful way, please don't use my creation as a threat towards that. People have had a very positive experience with this game and its unique possibilities; this is my way of expressing my passion towards problem-solving and Wordle's unique structure. I hope you have the chance to see the good in this project and what I have created, thank you.
+  </p>
     
   <h3 align="center">
     Source Code
