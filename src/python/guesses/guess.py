@@ -1,7 +1,7 @@
 from json import load
 
-from src.python.guesses.first_guesses import FirstGuesses
-from src.python.guesses.last_guesses import LastGuesses
+from guesses.first_guesses import FirstGuesses
+from guesses.last_guesses import LastGuesses
 
 class Guess:
     def __init__(self, incorrect_words, known_minimums, known_maximums, incorrect_placements, correct_placements,

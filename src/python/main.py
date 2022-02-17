@@ -1,4 +1,4 @@
-from src.python.guesses.guess import Guess
+from guesses.guess import Guess
 
 """
 Default Values
