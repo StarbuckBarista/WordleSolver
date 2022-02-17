@@ -87,6 +87,9 @@ class LastGuesses:
 
     @staticmethod
     def rate_possible_answers(possible_answers):
+        if 0 <= len(possible_answers) <= 1:
+            return 1
+
         def similarity(word_one, word_two):
             sequence = SequenceMatcher(a=word_one, b=word_two)
             return sequence.ratio()
@@ -94,8 +97,5 @@ class LastGuesses:
         matches = combinations(possible_answers, 2)
         data_frame = DataFrame(list(matches))
         similarities = data_frame.apply(lambda match: similarity(match[0], match[1]), axis=1)
-
-        if isinstance(similarities, DataFrame):
-            return 0
 
         return similarities.mean()
