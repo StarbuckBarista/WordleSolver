@@ -103,11 +103,11 @@
   </p>
     
   <h4 align="center">
-    First Guesses
+    Last Guesses
   </h4>
     
   <p align="center" style="margin-top: -15px">
-    The first guessing strategy is called when the number of possible solutions is above 500. This is because the algorithm is able to precisely find the solution when the number of possible answers is below 500.
+    The last guessing strategy is called when the number of possible solutions is above 500. This is because the algorithm is able to precisely find the solution when the number of possible answers is below 500.
     <br><br>
     This method matches every single possible guess with every single possible answer and calculates the number of possible answers that will be remaining if those two values are together. The possible answer list is then weighted using a method which will be defined below for further clarity. For each possible guess, the average of every one of those weighted values is taken and compared against the current best. 
   </p>
