@@ -72,7 +72,7 @@ class LastGuesses:
                         possible_answers_1.append(possible_answer_1)
 
                 similarity_rating = self.rate_possible_answers(possible_answers_1)
-                length_rating = -len(possible_answers_1)
+                length_rating = len(self.possible_answers) - len(possible_answers_1)
                 origin_distance = ((similarity_rating ** 2) + (length_rating ** 2)) ** 0.5
 
                 possible_answers_ratings.append(origin_distance)
