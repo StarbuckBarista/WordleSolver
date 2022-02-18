@@ -1,4 +1,5 @@
 from ast import literal_eval
+from json import load
 from requests import get
 
 from guesses.first_guesses import FirstGuesses
@@ -6,12 +7,13 @@ from guesses.last_guesses import LastGuesses
 
 class Guess:
     def __init__(self, incorrect_words, known_minimums, known_maximums, incorrect_placements, correct_placements,
-                 callback):
+                 scrape_web, callback):
         self.incorrect_words = incorrect_words
         self.known_minimums = known_minimums
         self.known_maximums = known_maximums
         self.incorrect_placements = incorrect_placements
         self.correct_placements = correct_placements
+        self.scrape_web = scrape_web
 
         self.possible_guesses = []
         self.get_possible_guesses()
@@ -24,27 +26,35 @@ class Guess:
         else:
             callback(LastGuesses(self.possible_answers).guess())
 
-    @staticmethod
-    def get_all_possible_guesses():
-        javascript = get("https://www.nytimes.com/games/wordle/main.18740dce.js").text
-        list_start = javascript[javascript.index("Ma=") + 3:]
-        list_end = list_start[:list_start.index("]") + 1]
-        all_possible_guesses = literal_eval(list_end)
+    def get_all_possible_guesses(self):
+        if self.scrape_web:
+            javascript = get("https://www.nytimes.com/games/wordle/main.18740dce.js").text
+            list_start = javascript[javascript.index("Ma=") + 3:]
+            list_end = list_start[:list_start.index("]") + 1]
+            all_possible_guesses = literal_eval(list_end)
 
-        javascript = get("https://www.nytimes.com/games/wordle/main.18740dce.js").text
-        list_start = javascript[javascript.index("Oa=") + 3:]
-        list_end = list_start[:list_start.index("]") + 1]
-        all_possible_guesses += literal_eval(list_end)
+            javascript = get("https://www.nytimes.com/games/wordle/main.18740dce.js").text
+            list_start = javascript[javascript.index("Oa=") + 3:]
+            list_end = list_start[:list_start.index("]") + 1]
+            all_possible_guesses += literal_eval(list_end)
 
-        return all_possible_guesses
+            return all_possible_guesses
+        else:
+            with open("../words.json", "r") as words:
+                data = load(words)
+                return data["possible_guesses"]
 
-    @staticmethod
-    def get_all_possible_answers():
-        javascript = get("https://www.nytimes.com/games/wordle/main.18740dce.js").text
-        list_start = javascript[javascript.index("Ma=") + 3:]
-        list_end = list_start[:list_start.index("]") + 1]
+    def get_all_possible_answers(self):
+        if self.scrape_web:
+            javascript = get("https://www.nytimes.com/games/wordle/main.18740dce.js").text
+            list_start = javascript[javascript.index("Ma=") + 3:]
+            list_end = list_start[:list_start.index("]") + 1]
 
-        return literal_eval(list_end)
+            return literal_eval(list_end)
+        else:
+            with open("../words.json", "r") as words:
+                data = load(words)
+                return data["possible_answers"]
 
     def get_possible_guesses(self):
         all_possible_guesses = self.get_all_possible_guesses()
