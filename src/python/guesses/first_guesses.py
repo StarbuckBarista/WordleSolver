@@ -1,16 +1,11 @@
 from difflib import SequenceMatcher
-from json import load
 from itertools import combinations
 from pandas import DataFrame
 
 class FirstGuesses:
-    def __init__(self, possible_answers):
+    def __init__(self, possible_guesses, possible_answers):
+        self.possible_guesses = possible_guesses
         self.possible_answers = possible_answers
-
-        with open("../words.json", "r") as words:
-            data = load(words)
-
-        self.all_possible_guesses = data["possible_guesses"]
 
     def guess(self):
         if len(self.possible_answers) == 1:
@@ -19,7 +14,8 @@ class FirstGuesses:
         optimal_word = None
         optimal_rating = None
 
-        for possible_guess in self.all_possible_guesses:
+        for possible_guess in self.possible_guesses:
+            print(f"{self.possible_guesses.index(possible_guess)}/{len(self.possible_guesses)}")
             possible_answers_ratings = []
 
             for possible_answer in self.possible_answers:
