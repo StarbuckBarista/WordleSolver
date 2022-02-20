@@ -1,5 +1,6 @@
 from ast import literal_eval
 from json import load
+from progressbar import PercentageLabelBar, ProgressBar
 from requests import get
 
 from guesses.first_guesses import FirstGuesses
@@ -21,10 +22,14 @@ class Guess:
         self.possible_answers = []
         self.get_possible_answers()
 
-        if len(self.possible_answers) > 500:
-            callback(FirstGuesses(self.possible_guesses, self.possible_answers).guess())
-        else:
-            callback(LastGuesses(self.possible_answers).guess())
+        progressbar_widgets = ["Progress: ", PercentageLabelBar(format=" %(percentage)2d%% ")]
+        progress_stages = len(self.possible_guesses) if len(self.possible_answers) > 500 else len(self.possible_answers)
+
+        with ProgressBar(widgets=progressbar_widgets, max_value=progress_stages) as bar:
+            if len(self.possible_answers) > 500:
+                callback(FirstGuesses(self.possible_guesses, self.possible_answers, bar.update).guess())
+            else:
+                callback(LastGuesses(self.possible_answers, bar.update).guess())
 
     def get_all_possible_guesses(self):
         if self.scrape_web:

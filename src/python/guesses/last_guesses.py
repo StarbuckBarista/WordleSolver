@@ -3,8 +3,9 @@ from itertools import combinations
 from pandas import DataFrame
 
 class LastGuesses:
-    def __init__(self, possible_answers):
+    def __init__(self, possible_answers, progressbar_update):
         self.possible_answers = possible_answers
+        self.progressbar_update = progressbar_update
 
     def guess(self):
         if len(self.possible_answers) == 1:
@@ -13,7 +14,12 @@ class LastGuesses:
         optimal_word = None
         optimal_rating = None
 
+        progressbar_stage = -1
+
         for possible_guess in self.possible_answers:
+            progressbar_stage += 1
+            self.progressbar_update(progressbar_stage)
+
             possible_answers_ratings = []
 
             for possible_answer in self.possible_answers:
