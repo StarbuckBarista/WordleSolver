@@ -35,11 +35,9 @@ class LastGuesses:
                                        possible_guess.count(character) > possible_answer.count(character)])}
                 incorrect_placements = {word_index: letters for word_index, letters in
                                         zip([index for index in range(len(possible_guess)) if
-                                             possible_guess[index] in possible_answer and possible_guess[index] !=
-                                             possible_answer[index]],
+                                             possible_guess[index] != possible_answer[index]],
                                             [[possible_answer[index]] for index in range(len(possible_guess)) if
-                                             possible_guess[index] in possible_answer and possible_guess[index] !=
-                                             possible_answer[index]])}
+                                             possible_guess[index] != possible_answer[index]])}
                 correct_placements = {word_index: letters for word_index, letters in
                                       zip([index for index in range(len(possible_guess)) if
                                            possible_guess[index] in possible_answer and possible_guess[index] ==
