@@ -80,8 +80,7 @@ class Guess:
 
             for incorrect_placement, incorrect_letters in self.incorrect_placements.items():
                 for incorrect_letter in incorrect_letters:
-                    if incorrect_letter not in possible_guess or \
-                            possible_guess[incorrect_placement] == incorrect_letter:
+                    if possible_guess[incorrect_placement] == incorrect_letter:
                         all_valid_letters = False
 
             for correct_placement, correct_letter in self.correct_placements.items():
@@ -110,8 +109,7 @@ class Guess:
 
             for incorrect_placement, incorrect_letters in self.incorrect_placements.items():
                 for incorrect_letter in incorrect_letters:
-                    if incorrect_letter not in possible_answer or \
-                            possible_answer[incorrect_placement] == incorrect_letter:
+                    if possible_answer[incorrect_placement] == incorrect_letter:
                         all_valid_letters = False
 
             for correct_placement, correct_letter in self.correct_placements.items():

@@ -36,11 +36,9 @@ class FirstGuesses:
                                        possible_guess.count(character) > possible_answer.count(character)])}
                 incorrect_placements = {word_index: letters for word_index, letters in
                                         zip([index for index in range(len(possible_guess)) if
-                                             possible_guess[index] in possible_answer and possible_guess[index] !=
-                                             possible_answer[index]],
+                                             possible_guess[index] != possible_answer[index]],
                                             [[possible_answer[index]] for index in range(len(possible_guess)) if
-                                             possible_guess[index] in possible_answer and possible_guess[index] !=
-                                             possible_answer[index]])}
+                                             possible_guess[index] != possible_answer[index]])}
                 correct_placements = {word_index: letters for word_index, letters in
                                       zip([index for index in range(len(possible_guess)) if
                                            possible_guess[index] in possible_answer and possible_guess[index] ==
@@ -67,8 +65,7 @@ class FirstGuesses:
 
                     for incorrect_placement, incorrect_letters in incorrect_placements.items():
                         for incorrect_letter in incorrect_letters:
-                            if incorrect_letter not in possible_answer_1 or \
-                                    possible_answer_1[incorrect_placement] == incorrect_letter:
+                            if possible_answer_1[incorrect_placement] == incorrect_letter:
                                 all_valid_letters = False
 
                     for correct_placement, correct_letter in correct_placements.items():
