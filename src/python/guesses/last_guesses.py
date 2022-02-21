@@ -66,8 +66,7 @@ class LastGuesses:
 
                     for incorrect_placement, incorrect_letters in incorrect_placements.items():
                         for incorrect_letter in incorrect_letters:
-                            if incorrect_letter not in possible_answer_1 or \
-                                    possible_answer_1[incorrect_placement] == incorrect_letter:
+                            if possible_answer_1[incorrect_placement] == incorrect_letter:
                                 all_valid_letters = False
 
                     for correct_placement, correct_letter in correct_placements.items():
