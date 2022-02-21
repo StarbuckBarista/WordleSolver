@@ -67,9 +67,9 @@
   </h4>
     
   <p align="center" style="margin-top: -15px">
-    Incorrect placements are all the letters that we can be certain are not in a specific location. The only way to obtain these letters are through incorrect letters.
+    Incorrect placements are all the letters that we can be certain are not in a specific location. The only way to obtain these letters are through incorrect letters and incorrect placements.
     <br><br>
-    If you were to guess <code>WORDLE</code> as your first guess and the letters O and E are incorrect letters, you would set the value to <code>{1: ["o"], 4: ["e"]}</code>.
+    If you were to guess <code>WORDLE</code> as your first guess and the letters O and E are incorrect letters and the letter L is an incorrect placement, you would set the value to <code>{1: ["o"], 3: ["l"], 4: ["e"]}</code>.
   </p>
     
   <h4 align="center">
