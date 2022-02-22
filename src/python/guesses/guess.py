@@ -27,9 +27,13 @@ class Guess:
 
         with ProgressBar(widgets=progressbar_widgets, max_value=progress_stages) as bar:
             if len(self.possible_answers) > 500:
-                callback(FirstGuesses(self.possible_guesses, self.possible_answers, bar.update).guess())
+                callback(FirstGuesses(self.incorrect_words, self.known_minimums, self.known_maximums,
+                                      self.incorrect_placements, self.correct_placements, self.possible_guesses,
+                                      self.possible_answers, bar.update).guess())
             else:
-                callback(LastGuesses(self.possible_answers, bar.update).guess())
+                callback(LastGuesses(self.incorrect_words, self.known_minimums, self.known_maximums,
+                                     self.incorrect_placements, self.correct_placements, self.possible_answers,
+                                     bar.update).guess())
 
     def get_all_possible_guesses(self):
         if self.scrape_web:
