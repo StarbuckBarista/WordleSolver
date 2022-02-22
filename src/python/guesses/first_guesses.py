@@ -3,7 +3,13 @@ from itertools import combinations
 from pandas import DataFrame
 
 class FirstGuesses:
-    def __init__(self, possible_guesses, possible_answers, progressbar_update):
+    def __init__(self, incorrect_words, known_minimums, known_maximums, incorrect_placements, correct_placements,
+                 possible_guesses, possible_answers, progressbar_update):
+        self.incorrect_words = incorrect_words
+        self.known_minimums = known_minimums
+        self.known_maximums = known_maximums
+        self.incorrect_placements = incorrect_placements
+        self.correct_placements = correct_placements
         self.possible_guesses = possible_guesses
         self.possible_answers = possible_answers
         self.progressbar_update = progressbar_update
@@ -47,6 +53,12 @@ class FirstGuesses:
                                            possible_guess[index] in possible_answer and possible_guess[index] ==
                                            possible_answer[index]])}
 
+                incorrect_words += self.incorrect_words
+                known_minimums = self.merge_dictionaries(known_minimums, self.known_minimums)
+                known_maximums = self.merge_dictionaries(known_maximums, self.known_maximums)
+                incorrect_placements = self.merge_dictionaries(incorrect_placements, self.incorrect_placements)
+                correct_placements = self.merge_dictionaries(correct_placements, self.correct_placements)
+
                 possible_answers_1 = []
 
                 for possible_answer_1 in self.possible_answers:
@@ -88,6 +100,17 @@ class FirstGuesses:
                 optimal_rating = average
 
         return optimal_word
+
+    @staticmethod
+    def merge_dictionaries(dictionary_one, dictionary_two):
+        for key, value in dictionary_two.items():
+            if key in dictionary_one:
+                if isinstance(dictionary_one[key], list):
+                    dictionary_one[key].append(value)
+            else:
+                dictionary_one[key] = value
+
+        return dictionary_one
 
     @staticmethod
     def rate_possible_answers(possible_answers):
