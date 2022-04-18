@@ -1,4 +1,3 @@
-from difflib import SequenceMatcher
 from itertools import combinations
 from pandas import DataFrame
 
@@ -117,9 +116,38 @@ class FirstGuesses:
         if 0 <= len(possible_answers) <= 1:
             return 1
 
-        def similarity(word_one, word_two):
-            sequence = SequenceMatcher(a=word_one, b=word_two)
-            return sequence.ratio()
+        def similarity(possible_guess, possible_answer):
+            known_minimums = {letter: minimum for letter, minimum in
+                              zip([character for character in possible_guess if character in possible_answer],
+                                  [abs(possible_guess.count(character) - possible_answer.count(character))
+                                   for character in possible_guess if character in possible_answer])}
+            known_maximums = {letter: maximum for letter, maximum in
+                              zip([character for character in possible_guess if possible_guess.count(character) >
+                                   possible_answer.count(character)],
+                                  [possible_answer.count(character) for character in possible_guess if
+                                   possible_guess.count(character) > possible_answer.count(character)])}
+            incorrect_placements = {word_index: letters for word_index, letters in
+                                    zip([index for index in range(len(possible_guess)) if
+                                         possible_guess[index] != possible_answer[index]],
+                                        [[possible_answer[index]] for index in range(len(possible_guess)) if
+                                         possible_guess[index] != possible_answer[index]])}
+            correct_placements = {word_index: letters for word_index, letters in
+                                  zip([index for index in range(len(possible_guess)) if
+                                       possible_guess[index] in possible_answer and possible_guess[index] ==
+                                       possible_answer[index]],
+                                      [possible_guess[index] for index in range(len(possible_guess)) if
+                                       possible_guess[index] in possible_answer and possible_guess[index] ==
+                                       possible_answer[index]])}
+
+            score = 0
+            score += len(known_minimums)
+            score += len(known_maximums)
+            score += len(correct_placements)
+
+            for incorrect_placement in incorrect_placements.values():
+                score += len(incorrect_placement)
+
+            return score / (26 + 26 + (26 * 5) + 5)
 
         matches = combinations(possible_answers, 2)
         data_frame = DataFrame(list(matches))
