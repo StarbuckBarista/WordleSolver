@@ -23,10 +23,10 @@ class Guess:
         self.get_possible_answers()
 
         progressbar_widgets = ["Progress: ", PercentageLabelBar(format=" %(percentage)2d%% ")]
-        progress_stages = len(self.possible_guesses) if len(self.possible_answers) > 500 else len(self.possible_answers)
+        progress_stages = len(self.possible_guesses) if len(self.possible_answers) > 25 else len(self.possible_answers)
 
         with ProgressBar(widgets=progressbar_widgets, max_value=progress_stages) as bar:
-            if len(self.possible_answers) > 500:
+            if len(self.possible_answers) > 25:
                 callback(FirstGuesses(self.incorrect_words, self.known_minimums, self.known_maximums,
                                       self.incorrect_placements, self.correct_placements, self.possible_guesses,
                                       self.possible_answers, bar.update).guess())
