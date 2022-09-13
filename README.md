@@ -1,6 +1,6 @@
 <div style="width: 60%; margin: 0 auto; text-align: center;">
   <h2 align="center">
-    Hi there, let me introduce you to <strong>WordleSolver</strong>. <img alt="Wave!" src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" height="30px">
+    Hi there, let me introduce you to <strong>WordleSolver</strong>. <img alt="Wave!" src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" height="30px" width="30px">
   </h2>
     
   <h4 align="center" style="margin-top: -10px">
